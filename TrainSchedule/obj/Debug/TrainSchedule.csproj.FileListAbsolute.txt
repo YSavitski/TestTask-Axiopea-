@@ -1,0 +1,11 @@
+F:\C#\TrainSchedule\TrainSchedule\bin\Debug\TrainSchedule.exe.config
+F:\C#\TrainSchedule\TrainSchedule\bin\Debug\TrainSchedule.exe
+F:\C#\TrainSchedule\TrainSchedule\bin\Debug\TrainSchedule.pdb
+F:\C#\TrainSchedule\TrainSchedule\obj\Debug\TrainSchedule.csprojResolveAssemblyReference.cache
+F:\C#\TrainSchedule\TrainSchedule\obj\Debug\TrainSchedule.MainForm.resources
+F:\C#\TrainSchedule\TrainSchedule\obj\Debug\TrainSchedule.Properties.Resources.resources
+F:\C#\TrainSchedule\TrainSchedule\obj\Debug\TrainSchedule.csproj.GenerateResource.Cache
+F:\C#\TrainSchedule\TrainSchedule\obj\Debug\TrainSchedule.exe
+F:\C#\TrainSchedule\TrainSchedule\obj\Debug\TrainSchedule.pdb
+F:\C#\TrainSchedule\TrainSchedule\obj\Debug\TrainSchedule.AddTrainForm.resources
+F:\C#\TrainSchedule\TrainSchedule\obj\Debug\TrainSchedule.AddScheduleForm.resources
