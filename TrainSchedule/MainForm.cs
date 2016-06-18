@@ -53,7 +53,7 @@ namespace TrainSchedule
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(string.Format("{0}: {1}", DateTime.Now, ex.Message), "Connection error", MessageBoxButtons.RetryCancel);
+                        MessageBox.Show(string.Format("{0}: {1}", DateTime.Now, ex.Message), ex.GetType().ToString(), MessageBoxButtons.RetryCancel);
                     }
                 }
             }
@@ -86,7 +86,7 @@ namespace TrainSchedule
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(string.Format("{0}: {1}", DateTime.Now, ex.Message), "Connection error", MessageBoxButtons.RetryCancel);
+                        MessageBox.Show(string.Format("{0}: {1}", DateTime.Now, ex.Message), ex.GetType().ToString(), MessageBoxButtons.RetryCancel);
                     }
                 }
             }

@@ -34,7 +34,12 @@
             this.dgvTrainsInStantion = new System.Windows.Forms.DataGridView();
             this.btnAddScheduleForCurrRow = new System.Windows.Forms.Button();
             this.gbAddSchedule = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.gbCheckPeriod = new System.Windows.Forms.GroupBox();
+            this.dtpTimeLeave = new System.Windows.Forms.DateTimePicker();
+            this.dtpTimeArrive = new System.Windows.Forms.DateTimePicker();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dgvSchedule = new System.Windows.Forms.DataGridView();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -44,13 +49,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tbTrainNSchedule = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.dtpTimeArrive = new System.Windows.Forms.DateTimePicker();
-            this.dtpTimeLeave = new System.Windows.Forms.DateTimePicker();
+            this.rbDaily = new System.Windows.Forms.RadioButton();
+            this.rbWeekly = new System.Windows.Forms.RadioButton();
+            this.rbMonthly = new System.Windows.Forms.RadioButton();
+            this.rbEvenUnEven = new System.Windows.Forms.RadioButton();
+            this.rbOtherDate = new System.Windows.Forms.RadioButton();
+            this.btnAddRecordSch = new System.Windows.Forms.Button();
+            this.btnDelRecordSch = new System.Windows.Forms.Button();
+            this.btnCancelRecordSch = new System.Windows.Forms.Button();
+            this.btnOKRecordSch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrainsInStantion)).BeginInit();
             this.gbAddSchedule.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.gbCheckPeriod.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -58,7 +69,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(8, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 23);
+            this.label1.Size = new System.Drawing.Size(123, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "Enter Stantion";
             // 
@@ -85,12 +96,12 @@
             // dgvTrainsInStantion
             // 
             this.dgvTrainsInStantion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTrainsInStantion.Location = new System.Drawing.Point(220, 12);
+            this.dgvTrainsInStantion.Location = new System.Drawing.Point(214, 12);
             this.dgvTrainsInStantion.Name = "dgvTrainsInStantion";
             this.dgvTrainsInStantion.ReadOnly = true;
             this.dgvTrainsInStantion.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgvTrainsInStantion.RowTemplate.Height = 24;
-            this.dgvTrainsInStantion.Size = new System.Drawing.Size(359, 147);
+            this.dgvTrainsInStantion.Size = new System.Drawing.Size(342, 147);
             this.dgvTrainsInStantion.TabIndex = 3;
             // 
             // btnAddScheduleForCurrRow
@@ -105,11 +116,16 @@
             // 
             // gbAddSchedule
             // 
+            this.gbAddSchedule.Controls.Add(this.btnCancelRecordSch);
+            this.gbAddSchedule.Controls.Add(this.btnDelRecordSch);
+            this.gbAddSchedule.Controls.Add(this.btnOKRecordSch);
+            this.gbAddSchedule.Controls.Add(this.btnAddRecordSch);
+            this.gbAddSchedule.Controls.Add(this.gbCheckPeriod);
             this.gbAddSchedule.Controls.Add(this.dtpTimeLeave);
             this.gbAddSchedule.Controls.Add(this.dtpTimeArrive);
             this.gbAddSchedule.Controls.Add(this.label8);
             this.gbAddSchedule.Controls.Add(this.label7);
-            this.gbAddSchedule.Controls.Add(this.dataGridView1);
+            this.gbAddSchedule.Controls.Add(this.dgvSchedule);
             this.gbAddSchedule.Controls.Add(this.label6);
             this.gbAddSchedule.Controls.Add(this.label5);
             this.gbAddSchedule.Controls.Add(this.label4);
@@ -119,20 +135,70 @@
             this.gbAddSchedule.Controls.Add(this.label3);
             this.gbAddSchedule.Controls.Add(this.label2);
             this.gbAddSchedule.Controls.Add(this.tbTrainNSchedule);
-            this.gbAddSchedule.Location = new System.Drawing.Point(12, 186);
+            this.gbAddSchedule.Location = new System.Drawing.Point(12, 165);
             this.gbAddSchedule.Name = "gbAddSchedule";
-            this.gbAddSchedule.Size = new System.Drawing.Size(567, 484);
+            this.gbAddSchedule.Size = new System.Drawing.Size(550, 513);
             this.gbAddSchedule.TabIndex = 5;
             this.gbAddSchedule.TabStop = false;
             // 
-            // dataGridView1
+            // gbCheckPeriod
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 328);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(555, 150);
-            this.dataGridView1.TabIndex = 9;
+            this.gbCheckPeriod.Controls.Add(this.rbOtherDate);
+            this.gbCheckPeriod.Controls.Add(this.rbEvenUnEven);
+            this.gbCheckPeriod.Controls.Add(this.rbMonthly);
+            this.gbCheckPeriod.Controls.Add(this.rbWeekly);
+            this.gbCheckPeriod.Controls.Add(this.rbDaily);
+            this.gbCheckPeriod.Location = new System.Drawing.Point(6, 130);
+            this.gbCheckPeriod.Name = "gbCheckPeriod";
+            this.gbCheckPeriod.Size = new System.Drawing.Size(538, 57);
+            this.gbCheckPeriod.TabIndex = 14;
+            this.gbCheckPeriod.TabStop = false;
+            this.gbCheckPeriod.Text = "Select one period:";
+            // 
+            // dtpTimeLeave
+            // 
+            this.dtpTimeLeave.Location = new System.Drawing.Point(173, 101);
+            this.dtpTimeLeave.Name = "dtpTimeLeave";
+            this.dtpTimeLeave.Size = new System.Drawing.Size(146, 23);
+            this.dtpTimeLeave.TabIndex = 13;
+            this.dtpTimeLeave.Value = new System.DateTime(2016, 6, 17, 0, 0, 0, 0);
+            // 
+            // dtpTimeArrive
+            // 
+            this.dtpTimeArrive.Location = new System.Drawing.Point(6, 101);
+            this.dtpTimeArrive.Name = "dtpTimeArrive";
+            this.dtpTimeArrive.Size = new System.Drawing.Size(146, 23);
+            this.dtpTimeArrive.TabIndex = 12;
+            this.dtpTimeArrive.Value = new System.DateTime(2016, 6, 17, 0, 0, 0, 0);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(169, 78);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(106, 20);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Time Leave";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(6, 78);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(106, 20);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Time Arrive";
+            // 
+            // dgvSchedule
+            // 
+            this.dgvSchedule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSchedule.Location = new System.Drawing.Point(6, 244);
+            this.dgvSchedule.Name = "dgvSchedule";
+            this.dgvSchedule.RowTemplate.Height = 24;
+            this.dgvSchedule.Size = new System.Drawing.Size(538, 204);
+            this.dgvSchedule.TabIndex = 9;
             // 
             // label6
             // 
@@ -166,7 +232,7 @@
             // 
             this.dtpActionTo.Location = new System.Drawing.Point(352, 101);
             this.dtpActionTo.Name = "dtpActionTo";
-            this.dtpActionTo.Size = new System.Drawing.Size(200, 23);
+            this.dtpActionTo.Size = new System.Drawing.Size(156, 23);
             this.dtpActionTo.TabIndex = 5;
             this.dtpActionTo.Value = new System.DateTime(2016, 6, 17, 0, 0, 0, 0);
             // 
@@ -174,7 +240,7 @@
             // 
             this.dtpActionFrom.Location = new System.Drawing.Point(352, 42);
             this.dtpActionFrom.Name = "dtpActionFrom";
-            this.dtpActionFrom.Size = new System.Drawing.Size(200, 23);
+            this.dtpActionFrom.Size = new System.Drawing.Size(156, 23);
             this.dtpActionFrom.TabIndex = 4;
             this.dtpActionFrom.Value = new System.DateTime(2016, 6, 17, 0, 0, 0, 0);
             // 
@@ -212,47 +278,105 @@
             this.tbTrainNSchedule.Size = new System.Drawing.Size(146, 23);
             this.tbTrainNSchedule.TabIndex = 0;
             // 
-            // label7
+            // rbDaily
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(6, 78);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(106, 20);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "Time Arrive";
+            this.rbDaily.AutoSize = true;
+            this.rbDaily.Location = new System.Drawing.Point(6, 23);
+            this.rbDaily.Name = "rbDaily";
+            this.rbDaily.Size = new System.Drawing.Size(60, 21);
+            this.rbDaily.TabIndex = 15;
+            this.rbDaily.TabStop = true;
+            this.rbDaily.Text = "Daily";
+            this.rbDaily.UseVisualStyleBackColor = true;
             // 
-            // label8
+            // rbWeekly
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(169, 78);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(106, 20);
-            this.label8.TabIndex = 11;
-            this.label8.Text = "Time Leave";
+            this.rbWeekly.AutoSize = true;
+            this.rbWeekly.Location = new System.Drawing.Point(85, 23);
+            this.rbWeekly.Name = "rbWeekly";
+            this.rbWeekly.Size = new System.Drawing.Size(75, 21);
+            this.rbWeekly.TabIndex = 16;
+            this.rbWeekly.TabStop = true;
+            this.rbWeekly.Text = "Weekly";
+            this.rbWeekly.UseVisualStyleBackColor = true;
             // 
-            // dtpTimeArrive
+            // rbMonthly
             // 
-            this.dtpTimeArrive.Location = new System.Drawing.Point(6, 101);
-            this.dtpTimeArrive.Name = "dtpTimeArrive";
-            this.dtpTimeArrive.Size = new System.Drawing.Size(146, 23);
-            this.dtpTimeArrive.TabIndex = 12;
-            this.dtpTimeArrive.Value = new System.DateTime(2016, 6, 17, 0, 0, 0, 0);
+            this.rbMonthly.AutoSize = true;
+            this.rbMonthly.Location = new System.Drawing.Point(187, 23);
+            this.rbMonthly.Name = "rbMonthly";
+            this.rbMonthly.Size = new System.Drawing.Size(78, 21);
+            this.rbMonthly.TabIndex = 17;
+            this.rbMonthly.TabStop = true;
+            this.rbMonthly.Text = "Monthly";
+            this.rbMonthly.UseVisualStyleBackColor = true;
             // 
-            // dtpTimeLeave
+            // rbEvenUnEven
             // 
-            this.dtpTimeLeave.Location = new System.Drawing.Point(173, 101);
-            this.dtpTimeLeave.Name = "dtpTimeLeave";
-            this.dtpTimeLeave.Size = new System.Drawing.Size(146, 23);
-            this.dtpTimeLeave.TabIndex = 13;
-            this.dtpTimeLeave.Value = new System.DateTime(2016, 6, 17, 0, 0, 0, 0);
+            this.rbEvenUnEven.AutoSize = true;
+            this.rbEvenUnEven.Location = new System.Drawing.Point(283, 23);
+            this.rbEvenUnEven.Name = "rbEvenUnEven";
+            this.rbEvenUnEven.Size = new System.Drawing.Size(115, 21);
+            this.rbEvenUnEven.TabIndex = 18;
+            this.rbEvenUnEven.TabStop = true;
+            this.rbEvenUnEven.Text = "Even\\UnEven";
+            this.rbEvenUnEven.UseVisualStyleBackColor = true;
+            // 
+            // rbOtherDate
+            // 
+            this.rbOtherDate.AutoSize = true;
+            this.rbOtherDate.Location = new System.Drawing.Point(417, 23);
+            this.rbOtherDate.Name = "rbOtherDate";
+            this.rbOtherDate.Size = new System.Drawing.Size(99, 21);
+            this.rbOtherDate.TabIndex = 19;
+            this.rbOtherDate.TabStop = true;
+            this.rbOtherDate.Text = "Other Date";
+            this.rbOtherDate.UseVisualStyleBackColor = true;
+            // 
+            // btnAddRecordSch
+            // 
+            this.btnAddRecordSch.Location = new System.Drawing.Point(12, 193);
+            this.btnAddRecordSch.Name = "btnAddRecordSch";
+            this.btnAddRecordSch.Size = new System.Drawing.Size(113, 45);
+            this.btnAddRecordSch.TabIndex = 15;
+            this.btnAddRecordSch.Text = "Add Record In Schedule";
+            this.btnAddRecordSch.UseVisualStyleBackColor = true;
+            this.btnAddRecordSch.Click += new System.EventHandler(this.btnAddRecordSch_Click);
+            // 
+            // btnDelRecordSch
+            // 
+            this.btnDelRecordSch.Location = new System.Drawing.Point(140, 193);
+            this.btnDelRecordSch.Name = "btnDelRecordSch";
+            this.btnDelRecordSch.Size = new System.Drawing.Size(113, 45);
+            this.btnDelRecordSch.TabIndex = 16;
+            this.btnDelRecordSch.Text = "Delete Record In Schedule";
+            this.btnDelRecordSch.UseVisualStyleBackColor = true;
+            // 
+            // btnCancelRecordSch
+            // 
+            this.btnCancelRecordSch.Location = new System.Drawing.Point(431, 460);
+            this.btnCancelRecordSch.Name = "btnCancelRecordSch";
+            this.btnCancelRecordSch.Size = new System.Drawing.Size(113, 45);
+            this.btnCancelRecordSch.TabIndex = 17;
+            this.btnCancelRecordSch.Text = "Cancel";
+            this.btnCancelRecordSch.UseVisualStyleBackColor = true;
+            this.btnCancelRecordSch.Click += new System.EventHandler(this.btnCancelRecordSch_Click);
+            // 
+            // btnOKRecordSch
+            // 
+            this.btnOKRecordSch.Location = new System.Drawing.Point(312, 460);
+            this.btnOKRecordSch.Name = "btnOKRecordSch";
+            this.btnOKRecordSch.Size = new System.Drawing.Size(113, 45);
+            this.btnOKRecordSch.TabIndex = 18;
+            this.btnOKRecordSch.Text = "OK";
+            this.btnOKRecordSch.UseVisualStyleBackColor = true;
+            this.btnOKRecordSch.Click += new System.EventHandler(this.btnOKRecordSch_Click);
             // 
             // AddScheduleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 682);
+            this.ClientSize = new System.Drawing.Size(572, 682);
             this.Controls.Add(this.gbAddSchedule);
             this.Controls.Add(this.btnAddScheduleForCurrRow);
             this.Controls.Add(this.dgvTrainsInStantion);
@@ -265,7 +389,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrainsInStantion)).EndInit();
             this.gbAddSchedule.ResumeLayout(false);
             this.gbAddSchedule.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.gbCheckPeriod.ResumeLayout(false);
+            this.gbCheckPeriod.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -288,10 +414,20 @@
         private System.Windows.Forms.TextBox tbTrainNSchedule;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvSchedule;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dtpTimeLeave;
         private System.Windows.Forms.DateTimePicker dtpTimeArrive;
+        private System.Windows.Forms.GroupBox gbCheckPeriod;
+        private System.Windows.Forms.RadioButton rbOtherDate;
+        private System.Windows.Forms.RadioButton rbEvenUnEven;
+        private System.Windows.Forms.RadioButton rbMonthly;
+        private System.Windows.Forms.RadioButton rbWeekly;
+        private System.Windows.Forms.RadioButton rbDaily;
+        private System.Windows.Forms.Button btnCancelRecordSch;
+        private System.Windows.Forms.Button btnDelRecordSch;
+        private System.Windows.Forms.Button btnOKRecordSch;
+        private System.Windows.Forms.Button btnAddRecordSch;
     }
 }

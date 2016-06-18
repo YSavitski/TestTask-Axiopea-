@@ -16,7 +16,8 @@ namespace TrainSchedule
     {
         private SqlDataAdapter adapter;
         DataTable tblListTrainByStantion = new DataTable("tblListTrainByStantion");
-        private DataTable tblScheduleDates = new DataTable("tblScheduleDates");
+        private DataTable tblSchedule = new DataTable("tblSchedule");
+        private DateTime step;
         
         public AddScheduleForm()
         {
@@ -24,6 +25,38 @@ namespace TrainSchedule
             this.CenterToParent();
             gbAddSchedule.Visible = false;
         }
+
+        private void btnSearchByStantion_Click(object sender, EventArgs e)
+        {
+            ShowTrainListByStantion(Connection.str_connection);
+        }
+
+        private void btnAddScheduleForCurrRow_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var currRow = (dgvTrainsInStantion.CurrentRow.DataBoundItem as DataRowView).Row;
+                tbTrainNSchedule.Text = currRow["TrainN"].ToString();
+                tbStantionSchedule.Text = currRow["StantionName"].ToString();
+                tbTrainNSchedule.ReadOnly = true;
+                tbStantionSchedule.ReadOnly = true;
+                gbAddSchedule.Visible = true; 
+                ShowSchedule(currRow["TrainN"].ToString(), currRow["StantionName"].ToString());
+                tbSeachByStantion.ReadOnly = true;
+                btnSearchByStantion.Enabled = false; 
+                btnAddScheduleForCurrRow.Enabled = false;
+                dtpActionFrom.Format = DateTimePickerFormat.Short;
+                dtpActionTo.Format = DateTimePickerFormat.Short;
+                dtpTimeArrive.Format = DateTimePickerFormat.Time;
+                dtpTimeLeave.Format = DateTimePickerFormat.Time;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("{0}:\n{1}", DateTime.Now, ex.Message), ex.GetType().ToString(),
+                    MessageBoxButtons.OK);
+            }
+        }
+
 
         private void ShowTrainListByStantion(string str_connection)
         {
@@ -44,48 +77,121 @@ namespace TrainSchedule
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(string.Format("{0}: {1}", DateTime.Now, ex.Message), "Connection error", MessageBoxButtons.RetryCancel);
+                        MessageBox.Show(string.Format("{0}: {1}", DateTime.Now, ex.Message), ex.GetType().ToString(), MessageBoxButtons.RetryCancel);
                     }
                 }
             }
         }
 
-        private void btnSearchByStantion_Click(object sender, EventArgs e)
+        private void ShowSchedule(string TrainN, string StantionName)
         {
-            ShowTrainListByStantion(Connection.str_connection);
-        }
-
-        private void btnAddScheduleForCurrRow_Click(object sender, EventArgs e)
-        {
-            try
+            using (SqlConnection connection = new SqlConnection(Connection.str_connection))
             {
-                var currRow = (dgvTrainsInStantion.CurrentRow.DataBoundItem as DataRowView).Row;
-                tbTrainNSchedule.Text = currRow["TrainN"].ToString();
-                tbStantionSchedule.Text = currRow["StantionName"].ToString();
-                tbTrainNSchedule.ReadOnly = true;
-                tbStantionSchedule.ReadOnly = true;
-                gbAddSchedule.Visible = true; 
-                tbSeachByStantion.ReadOnly = true;
-                btnSearchByStantion.Enabled = false; 
-                btnAddScheduleForCurrRow.Enabled = false;
-                dtpActionFrom.Format = DateTimePickerFormat.Short;
-                dtpActionTo.Format = DateTimePickerFormat.Short;
-                dtpTimeArrive.Format = DateTimePickerFormat.Time;
-                dtpTimeLeave.Format = DateTimePickerFormat.Time;
-
-
-                //MessageBox.Show(string.Format("{0}\n{1}\n{2}\n{3}",
-                //    dtpActionFrom.Value.Date, dtpActionTo.Value.ToShortDateString(), dtpTimeArrive.Value.Date,
-                //    dtpTimeLeave.Value.TimeOfDay));
-
-                
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(string.Format("{0}:\n{1}", DateTime.Now, ex.Message), ex.GetType().ToString(),
-                    MessageBoxButtons.OK);
+                connection.Open();
+                SqlCommand cmd_ShowCurrentSchedule = new SqlCommand(string.Format("SELECT s.TrainN, s2.StantionName, s.DateIn, s.TimeArrive, s.TimeLeave " +
+                                                                                  "FROM Schedule AS s INNER JOIN Stantion AS s2 " +
+                                                                                        "ON s2.ID_Stantion = s.ID_Stantion " +
+                                                                                        "WHERE s.TrainN LIKE '%{0}%' AND s2.StantionName LIKE '%{1}%'",
+                                                                                        TrainN, StantionName), connection);
+                using (adapter = new SqlDataAdapter(cmd_ShowCurrentSchedule))
+                {
+                    try
+                    {
+                        adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+                        adapter.FillSchema(tblSchedule, SchemaType.Mapped);
+                        adapter.Fill(tblSchedule);
+                        dgvSchedule.DataSource = tblSchedule;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(string.Format("{0}: {1}", DateTime.Now, ex.Message), ex.GetType().ToString(), MessageBoxButtons.RetryCancel);
+                    }
+                }
             }
         }
+
+        private void btnCancelRecordSch_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnOKRecordSch_Click(object sender, EventArgs e)
+        {
+
+
+            this.Close();
+        }
+
+        private void btnAddRecordSch_Click(object sender, EventArgs e)
+        {
+            AddRecordInSchedule(tbTrainNSchedule.Text, tbStantionSchedule.Text,
+                dtpActionFrom.Value.Date, dtpActionTo.Value.Date, dtpTimeArrive.Value.TimeOfDay, dtpTimeLeave.Value.TimeOfDay);
+        }
+
+        private void AddRecordInSchedule(string trainN, 
+                                            string stantionName, DateTime actionFrom, DateTime actionTo, 
+                                            TimeSpan timeArrive, TimeSpan timeLeave)
+        {
+            DataRow newRow;
+
+            while (actionFrom.CompareTo(actionTo) <= 0)
+            {
+                newRow = this.tblSchedule.NewRow();
+                newRow["TrainN"] = trainN;
+                newRow["StantionName"] = stantionName;
+                newRow["DateIn"] = actionFrom.Date;
+                newRow["TimeArrive"] = timeArrive;
+                newRow["TimeLeave"] = timeLeave;
+                MessageBox.Show(string.Format("TrainN: {0}\nStantionName: {1}\nDateIn: {2}\nTimeArrive: {3}\nTimeLeave: {4}",
+                    trainN, stantionName, actionFrom.Date, timeArrive, timeLeave));
+                try
+                {
+                    this.tblSchedule.Rows.Add(newRow);
+
+                    if (rbDaily.Checked)
+                    {
+                        actionFrom = actionFrom.AddHours(24);
+                    }
+                    //else if (rbWeekly.Checked)
+                    //{
+                    //    actionFrom = actionFrom.AddDays(7);
+                    //}
+                    //else if (rbMonthly.Checked)
+                    //{
+                    //    actionFrom = actionFrom.AddMonths(1);
+                    //}
+                    else if (rbEvenUnEven.Checked)
+                    {
+                        actionFrom = actionFrom.AddHours(48);
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                    if (rbDaily.Checked)
+                    {
+                        actionFrom = actionFrom.AddHours(24);
+                    }
+                    //else if (rbWeekly.Checked)
+                    //{
+                    //    actionFrom = actionFrom.AddDays(7);
+                    //}
+                    //else if (rbMonthly.Checked)
+                    //{
+                    //    actionFrom = actionFrom.AddMonths(1);
+                    //}
+                    else if (rbEvenUnEven.Checked)
+                    {
+                        actionFrom = actionFrom.AddHours(48);
+                    }
+                    continue;
+                }
+
+                dgvSchedule.DataSource = tblSchedule;
+            }
+        }
+
+
     }
 }
