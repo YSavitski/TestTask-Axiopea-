@@ -36,7 +36,10 @@
             this.btnAddTrain = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListSchedule)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvListSchedule
@@ -61,14 +64,14 @@
             // 
             // tbStantionNameFind
             // 
-            this.tbStantionNameFind.Location = new System.Drawing.Point(79, 7);
+            this.tbStantionNameFind.Location = new System.Drawing.Point(92, 29);
             this.tbStantionNameFind.Name = "tbStantionNameFind";
             this.tbStantionNameFind.Size = new System.Drawing.Size(200, 22);
             this.tbStantionNameFind.TabIndex = 2;
             // 
             // dtpCurrentDate
             // 
-            this.dtpCurrentDate.Location = new System.Drawing.Point(79, 44);
+            this.dtpCurrentDate.Location = new System.Drawing.Point(92, 68);
             this.dtpCurrentDate.Name = "dtpCurrentDate";
             this.dtpCurrentDate.Size = new System.Drawing.Size(200, 22);
             this.dtpCurrentDate.TabIndex = 3;
@@ -76,9 +79,9 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(12, 88);
+            this.btnSearch.Location = new System.Drawing.Point(9, 108);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(157, 49);
+            this.btnSearch.Size = new System.Drawing.Size(93, 28);
             this.btnSearch.TabIndex = 4;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -97,7 +100,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 12);
+            this.label1.Location = new System.Drawing.Point(6, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 17);
             this.label1.TabIndex = 6;
@@ -106,31 +109,51 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 44);
+            this.label2.Location = new System.Drawing.Point(6, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 17);
             this.label2.TabIndex = 7;
             this.label2.Text = "Date In:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btnSearch);
+            this.groupBox1.Controls.Add(this.tbStantionNameFind);
+            this.groupBox1.Controls.Add(this.dtpCurrentDate);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(303, 142);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Search schedule by Stantion and date";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(178, 119);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(0, 17);
+            this.label3.TabIndex = 9;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 519);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAddTrain);
-            this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.dtpCurrentDate);
-            this.Controls.Add(this.tbStantionNameFind);
             this.Controls.Add(this.btnAddSchedule);
             this.Controls.Add(this.dgvListSchedule);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListSchedule)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -144,6 +167,8 @@
         private System.Windows.Forms.Button btnAddTrain;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label3;
     }
 }
 

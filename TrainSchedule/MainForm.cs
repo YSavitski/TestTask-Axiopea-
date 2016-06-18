@@ -83,6 +83,7 @@ namespace TrainSchedule
                         adapter.FillSchema(tblSearchData, SchemaType.Mapped);
                         adapter.Fill(tblSearchData);
                         dgvListSchedule.DataSource = tblSearchData;
+                        label3.Text = "Success search...";
                     }
                     catch (Exception ex)
                     {

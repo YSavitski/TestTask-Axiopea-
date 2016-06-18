@@ -79,10 +79,10 @@ namespace TrainSchedule
             using (SqlConnection connection = new SqlConnection(str_connection))
             {
                 connection.Open();
-                SqlCommand cmd_ShowListTrain = new SqlCommand(string.Format("SELECT t.TrainN, t.TrainItenerary, s2.StantionName FROM Train AS t " +
-                                                                            "INNER JOIN Schedule AS s ON s.TrainN = t.TrainN " +
-                                                                            "INNER JOIN Stantion AS s2 ON s2.ID_Stantion = s.ID_Stantion " +
-                                                                            "WHERE s2.StantionName LIKE '%{0}%'", tbSeachByStantion.Text), connection);
+                SqlCommand cmd_ShowListTrain = new SqlCommand(string.Format("SELECT s.StantionName, tats.TrainN, t.TrainItenerary FROM TrainsAtTheStantions AS tats " +
+                                                                            "INNER JOIN Train AS t ON t.TrainN = tats.TrainN " +
+                                                                            "INNER JOIN Stantion AS s ON s.ID_Stantion = tats.ID_Stantion " +
+                                                                            "WHERE s.StantionName LIKE '%{0}%'", tbSeachByStantion.Text), connection);
                 using (adapter = new SqlDataAdapter(cmd_ShowListTrain))
                 {
                     try
@@ -213,7 +213,7 @@ namespace TrainSchedule
                         }
                         continue;
                     }
-
+                    tblSchedule.AcceptChanges();
                     dgvSchedule.DataSource = tblSchedule;
                 }
             }
