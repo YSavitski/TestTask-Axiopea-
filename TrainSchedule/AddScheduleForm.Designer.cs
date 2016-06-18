@@ -51,7 +51,6 @@
             this.tbTrainNSchedule = new System.Windows.Forms.TextBox();
             this.rbDaily = new System.Windows.Forms.RadioButton();
             this.rbWeekly = new System.Windows.Forms.RadioButton();
-            this.rbMonthly = new System.Windows.Forms.RadioButton();
             this.rbEvenUnEven = new System.Windows.Forms.RadioButton();
             this.rbOtherDate = new System.Windows.Forms.RadioButton();
             this.btnAddRecordSch = new System.Windows.Forms.Button();
@@ -145,7 +144,6 @@
             // 
             this.gbCheckPeriod.Controls.Add(this.rbOtherDate);
             this.gbCheckPeriod.Controls.Add(this.rbEvenUnEven);
-            this.gbCheckPeriod.Controls.Add(this.rbMonthly);
             this.gbCheckPeriod.Controls.Add(this.rbWeekly);
             this.gbCheckPeriod.Controls.Add(this.rbDaily);
             this.gbCheckPeriod.Location = new System.Drawing.Point(6, 130);
@@ -292,7 +290,7 @@
             // rbWeekly
             // 
             this.rbWeekly.AutoSize = true;
-            this.rbWeekly.Location = new System.Drawing.Point(85, 23);
+            this.rbWeekly.Location = new System.Drawing.Point(134, 22);
             this.rbWeekly.Name = "rbWeekly";
             this.rbWeekly.Size = new System.Drawing.Size(75, 21);
             this.rbWeekly.TabIndex = 16;
@@ -300,21 +298,10 @@
             this.rbWeekly.Text = "Weekly";
             this.rbWeekly.UseVisualStyleBackColor = true;
             // 
-            // rbMonthly
-            // 
-            this.rbMonthly.AutoSize = true;
-            this.rbMonthly.Location = new System.Drawing.Point(187, 23);
-            this.rbMonthly.Name = "rbMonthly";
-            this.rbMonthly.Size = new System.Drawing.Size(78, 21);
-            this.rbMonthly.TabIndex = 17;
-            this.rbMonthly.TabStop = true;
-            this.rbMonthly.Text = "Monthly";
-            this.rbMonthly.UseVisualStyleBackColor = true;
-            // 
             // rbEvenUnEven
             // 
             this.rbEvenUnEven.AutoSize = true;
-            this.rbEvenUnEven.Location = new System.Drawing.Point(283, 23);
+            this.rbEvenUnEven.Location = new System.Drawing.Point(268, 23);
             this.rbEvenUnEven.Name = "rbEvenUnEven";
             this.rbEvenUnEven.Size = new System.Drawing.Size(115, 21);
             this.rbEvenUnEven.TabIndex = 18;
@@ -325,7 +312,7 @@
             // rbOtherDate
             // 
             this.rbOtherDate.AutoSize = true;
-            this.rbOtherDate.Location = new System.Drawing.Point(417, 23);
+            this.rbOtherDate.Location = new System.Drawing.Point(425, 22);
             this.rbOtherDate.Name = "rbOtherDate";
             this.rbOtherDate.Size = new System.Drawing.Size(99, 21);
             this.rbOtherDate.TabIndex = 19;
@@ -386,6 +373,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Name = "AddScheduleForm";
             this.Text = "AddScheduleForm";
+            this.Load += new System.EventHandler(this.AddScheduleForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrainsInStantion)).EndInit();
             this.gbAddSchedule.ResumeLayout(false);
             this.gbAddSchedule.PerformLayout();
@@ -422,7 +410,6 @@
         private System.Windows.Forms.GroupBox gbCheckPeriod;
         private System.Windows.Forms.RadioButton rbOtherDate;
         private System.Windows.Forms.RadioButton rbEvenUnEven;
-        private System.Windows.Forms.RadioButton rbMonthly;
         private System.Windows.Forms.RadioButton rbWeekly;
         private System.Windows.Forms.RadioButton rbDaily;
         private System.Windows.Forms.Button btnCancelRecordSch;

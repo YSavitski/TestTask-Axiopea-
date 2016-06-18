@@ -17,13 +17,27 @@ namespace TrainSchedule
         private SqlDataAdapter adapter;
         DataTable tblListTrainByStantion = new DataTable("tblListTrainByStantion");
         private DataTable tblSchedule = new DataTable("tblSchedule");
-        private DateTime step;
+        
         
         public AddScheduleForm()
         {
             InitializeComponent();
             this.CenterToParent();
             gbAddSchedule.Visible = false;
+        }
+
+
+        private void AddScheduleForm_Load(object sender, EventArgs e)
+        {
+            tblSchedule.Columns.Add("TrainN", typeof(string));
+            tblSchedule.Columns.Add("StantionName", typeof(string));
+            tblSchedule.Columns.Add("DateIn", typeof(DateTime));
+            tblSchedule.Columns.Add("TimeArrive", typeof(TimeSpan));
+            tblSchedule.Columns.Add("TimeLeave", typeof(TimeSpan));
+            UniqueConstraint uniqueSchedule = new UniqueConstraint(new DataColumn[]
+                    {tblSchedule.Columns["TrainN"], tblSchedule.Columns["StantionName"], tblSchedule.Columns["DateIn"],
+                        tblSchedule.Columns["TimeArrive"], tblSchedule.Columns["TimeLeave"]});
+            tblSchedule.Constraints.Add(uniqueSchedule);
         }
 
         private void btnSearchByStantion_Click(object sender, EventArgs e)
@@ -40,7 +54,8 @@ namespace TrainSchedule
                 tbStantionSchedule.Text = currRow["StantionName"].ToString();
                 tbTrainNSchedule.ReadOnly = true;
                 tbStantionSchedule.ReadOnly = true;
-                gbAddSchedule.Visible = true; 
+                gbAddSchedule.Visible = true;
+                dgvSchedule.ReadOnly = true;
                 ShowSchedule(currRow["TrainN"].ToString(), currRow["StantionName"].ToString());
                 tbSeachByStantion.ReadOnly = true;
                 btnSearchByStantion.Enabled = false; 
@@ -97,8 +112,6 @@ namespace TrainSchedule
                 {
                     try
                     {
-                        adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-                        adapter.FillSchema(tblSchedule, SchemaType.Mapped);
                         adapter.Fill(tblSchedule);
                         dgvSchedule.DataSource = tblSchedule;
                     }
@@ -132,66 +145,85 @@ namespace TrainSchedule
                                             string stantionName, DateTime actionFrom, DateTime actionTo, 
                                             TimeSpan timeArrive, TimeSpan timeLeave)
         {
-            DataRow newRow;
-
-            while (actionFrom.CompareTo(actionTo) <= 0)
+            if (rbOtherDate.Checked || rbDaily.Checked || rbEvenUnEven.Checked || rbWeekly.Checked)
             {
-                newRow = this.tblSchedule.NewRow();
-                newRow["TrainN"] = trainN;
-                newRow["StantionName"] = stantionName;
-                newRow["DateIn"] = actionFrom.Date;
-                newRow["TimeArrive"] = timeArrive;
-                newRow["TimeLeave"] = timeLeave;
-                MessageBox.Show(string.Format("TrainN: {0}\nStantionName: {1}\nDateIn: {2}\nTimeArrive: {3}\nTimeLeave: {4}",
-                    trainN, stantionName, actionFrom.Date, timeArrive, timeLeave));
-                try
-                {
-                    this.tblSchedule.Rows.Add(newRow);
+                DataRow newRow;
 
-                    if (rbDaily.Checked)
-                    {
-                        actionFrom = actionFrom.AddHours(24);
-                    }
-                    //else if (rbWeekly.Checked)
-                    //{
-                    //    actionFrom = actionFrom.AddDays(7);
-                    //}
-                    //else if (rbMonthly.Checked)
-                    //{
-                    //    actionFrom = actionFrom.AddMonths(1);
-                    //}
-                    else if (rbEvenUnEven.Checked)
-                    {
-                        actionFrom = actionFrom.AddHours(48);
-                    }
-                    
-                }
-                catch (Exception ex)
+                while (actionFrom.CompareTo(actionTo) <= 0)
                 {
-                    MessageBox.Show(ex.Message, ex.GetType().ToString());
-                    if (rbDaily.Checked)
+                    newRow = this.tblSchedule.NewRow();
+                    newRow["TrainN"] = trainN;
+                    newRow["StantionName"] = stantionName;
+                    newRow["DateIn"] = actionFrom.Date;
+                    newRow["TimeArrive"] = timeArrive;
+                    newRow["TimeLeave"] = timeLeave;
+                    MessageBox.Show(string.Format("TrainN: {0}\nStantionName: {1}\nDateIn: {2}\nTimeArrive: {3}\nTimeLeave: {4}",
+                        trainN, stantionName, actionFrom.Date, timeArrive, timeLeave));
+                    try
                     {
-                        actionFrom = actionFrom.AddHours(24);
-                    }
-                    //else if (rbWeekly.Checked)
-                    //{
-                    //    actionFrom = actionFrom.AddDays(7);
-                    //}
-                    //else if (rbMonthly.Checked)
-                    //{
-                    //    actionFrom = actionFrom.AddMonths(1);
-                    //}
-                    else if (rbEvenUnEven.Checked)
-                    {
-                        actionFrom = actionFrom.AddHours(48);
-                    }
-                    continue;
-                }
+                        if (rbDaily.Checked)
+                        {
+                            this.tblSchedule.Rows.Add(newRow);
+                            actionFrom = actionFrom.AddHours(24);
+                        }
+                        //else if (rbWeekly.Checked)
+                        //{
+                        //    actionFrom = actionFrom.AddDays(7);
+                        //}
+                        else if (rbEvenUnEven.Checked)
+                        {
+                            this.tblSchedule.Rows.Add(newRow);
+                            actionFrom = actionFrom.AddHours(48);
+                        }
+                        else if (rbOtherDate.Checked)
+                        {
+                            if (actionFrom.CompareTo(actionTo) == 0)
+                            {
+                                this.tblSchedule.Rows.Add(newRow);
+                                break;
+                            }
+                            else
+                            {
+                                MessageBox.Show(string.Format("{0}\nDates ActionFrom and ActionTo must be equal."),
+                                    "Incorrec select dates!");
+                                break;
+                            }
 
-                dgvSchedule.DataSource = tblSchedule;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, ex.GetType().ToString());
+                        if (rbDaily.Checked)
+                        {
+                            actionFrom = actionFrom.AddHours(24);
+                        }
+                        //else if (rbWeekly.Checked)
+                        //{
+                        //    actionFrom = actionFrom.AddDays(7);
+                        //}
+                        else if (rbEvenUnEven.Checked)
+                        {
+                            actionFrom = actionFrom.AddHours(48);
+                        }
+
+                        else if (rbOtherDate.Checked)
+                        {
+                            break;
+                        }
+                        continue;
+                    }
+
+                    dgvSchedule.DataSource = tblSchedule;
+                }
+            }
+
+            else
+            {
+                MessageBox.Show("You need select period!!!");
             }
         }
 
-
+        
     }
 }
