@@ -232,9 +232,107 @@ namespace TrainSchedule
 
         private void btnDelRecordSch_Click(object sender, EventArgs e)
         {
-            foreach (DataRow row in tblSchedule.Rows)
+            DialogResult res = MessageBox.Show("Вы уверены что хотите удалить этого клиента?", "DeleteDialog", MessageBoxButtons.OKCancel);
+            if (res == System.Windows.Forms.DialogResult.OK)
             {
-                MessageBox.Show(row.RowState.ToString());
+                DeleteRecordFromSchedule(tbTrainNSchedule.Text, tbStantionSchedule.Text,
+                dtpActionFrom.Value.Date, dtpActionTo.Value.Date, dtpTimeArrive.Value.TimeOfDay, dtpTimeLeave.Value.TimeOfDay);
+            }
+
+
+            //foreach (DataRow row in tblSchedule.Rows)
+            //{
+            //    MessageBox.Show(row.RowState.ToString());
+            //}
+
+
+        }
+
+
+        private void DeleteRecordFromSchedule(string trainN,
+                                            string stantionName, DateTime actionFrom, DateTime actionTo,
+                                            TimeSpan timeArrive, TimeSpan timeLeave)
+        {
+            if (rbOtherDate.Checked || rbDaily.Checked || rbEvenUnEven.Checked || rbWeekly.Checked)
+            {
+                DataRow newRow;
+
+                while (actionFrom.CompareTo(actionTo) <= 0)
+                {
+                    newRow = this.tblSchedule.NewRow();
+                    newRow["TrainN"] = trainN;
+                    newRow["StantionName"] = stantionName;
+                    newRow["DateIn"] = actionFrom.Date;
+                    newRow["TimeArrive"] = timeArrive;
+                    newRow["TimeLeave"] = timeLeave;
+                    MessageBox.Show(string.Format("TrainN: {0}\nStantionName: {1}\nDateIn: {2}\nTimeArrive: {3}\nTimeLeave: {4}",
+                        trainN, stantionName, actionFrom.Date, timeArrive, timeLeave));
+                    try
+                    {
+                        if (rbDaily.Checked)
+                        {
+                            //this.tblSchedule.Rows.Add(newRow);
+                            this.tblSchedule.Rows.Remove(newRow);
+                            actionFrom = actionFrom.AddHours(24);
+                        }
+                        //else if (rbWeekly.Checked)
+                        //{
+                        //    actionFrom = actionFrom.AddDays(7);
+                        //}
+                        else if (rbEvenUnEven.Checked)
+                        {
+                            this.tblSchedule.Rows.Add(newRow);
+                            actionFrom = actionFrom.AddHours(48);
+                        }
+                        else if (rbOtherDate.Checked)
+                        {
+                            if (actionFrom.CompareTo(actionTo) == 0)
+                            {
+                                this.tblSchedule.Rows.Add(newRow);
+                                break;
+                            }
+                            else
+                            {
+                                MessageBox.Show(string.Format("{0}\nDates ActionFrom and ActionTo must be equal."),
+                                    "Incorrec select dates!");
+                                break;
+                            }
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, ex.GetType().ToString());
+                        if (rbDaily.Checked)
+                        {
+                            actionFrom = actionFrom.AddHours(24);
+                        }
+                        //else if (rbWeekly.Checked)
+                        //{
+                        //    actionFrom = actionFrom.AddDays(7);
+                        //}
+                        else if (rbEvenUnEven.Checked)
+                        {
+                            actionFrom = actionFrom.AddHours(48);
+                        }
+
+                        else if (rbOtherDate.Checked)
+                        {
+                            break;
+                        }
+                        continue;
+                    }
+                    finally
+                    {
+                        SheduleWork.InsertRecords(this.tblSchedule);
+                        dgvSchedule.DataSource = tblSchedule;
+                    }
+                }
+            }
+
+            else
+            {
+                MessageBox.Show("You need select period!!!");
             }
         }
     }
