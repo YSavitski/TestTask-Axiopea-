@@ -57,6 +57,8 @@
             this.btnDelRecordSch = new System.Windows.Forms.Button();
             this.btnCancelRecordSch = new System.Windows.Forms.Button();
             this.btnOKRecordSch = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tbSearchByItinerary = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrainsInStantion)).BeginInit();
             this.gbAddSchedule.SuspendLayout();
             this.gbCheckPeriod.SuspendLayout();
@@ -66,29 +68,29 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(8, 20);
+            this.label1.Location = new System.Drawing.Point(8, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 30);
+            this.label1.Size = new System.Drawing.Size(123, 20);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Enter Stantion";
+            this.label1.Text = "Enter Stantion:";
             // 
             // tbSeachByStantion
             // 
             this.tbSeachByStantion.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbSeachByStantion.Location = new System.Drawing.Point(12, 56);
+            this.tbSeachByStantion.Location = new System.Drawing.Point(12, 35);
             this.tbSeachByStantion.Multiline = true;
             this.tbSeachByStantion.Name = "tbSeachByStantion";
-            this.tbSeachByStantion.Size = new System.Drawing.Size(170, 38);
+            this.tbSeachByStantion.Size = new System.Drawing.Size(170, 22);
             this.tbSeachByStantion.TabIndex = 1;
             // 
             // btnSearchByStantion
             // 
-            this.btnSearchByStantion.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSearchByStantion.Location = new System.Drawing.Point(132, 12);
+            this.btnSearchByStantion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSearchByStantion.Location = new System.Drawing.Point(12, 113);
             this.btnSearchByStantion.Name = "btnSearchByStantion";
-            this.btnSearchByStantion.Size = new System.Drawing.Size(50, 38);
+            this.btnSearchByStantion.Size = new System.Drawing.Size(75, 49);
             this.btnSearchByStantion.TabIndex = 2;
-            this.btnSearchByStantion.Text = "S";
+            this.btnSearchByStantion.Text = "Search";
             this.btnSearchByStantion.UseVisualStyleBackColor = true;
             this.btnSearchByStantion.Click += new System.EventHandler(this.btnSearchByStantion_Click);
             // 
@@ -105,9 +107,9 @@
             // 
             // btnAddScheduleForCurrRow
             // 
-            this.btnAddScheduleForCurrRow.Location = new System.Drawing.Point(45, 113);
+            this.btnAddScheduleForCurrRow.Location = new System.Drawing.Point(107, 113);
             this.btnAddScheduleForCurrRow.Name = "btnAddScheduleForCurrRow";
-            this.btnAddScheduleForCurrRow.Size = new System.Drawing.Size(119, 33);
+            this.btnAddScheduleForCurrRow.Size = new System.Drawing.Size(75, 49);
             this.btnAddScheduleForCurrRow.TabIndex = 4;
             this.btnAddScheduleForCurrRow.Text = "Add Schedule";
             this.btnAddScheduleForCurrRow.UseVisualStyleBackColor = true;
@@ -360,11 +362,31 @@
             this.btnOKRecordSch.UseVisualStyleBackColor = true;
             this.btnOKRecordSch.Click += new System.EventHandler(this.btnOKRecordSch_Click);
             // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(8, 60);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(123, 20);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "Enter Itinerary:";
+            // 
+            // tbSearchByItinerary
+            // 
+            this.tbSearchByItinerary.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbSearchByItinerary.Location = new System.Drawing.Point(12, 83);
+            this.tbSearchByItinerary.Multiline = true;
+            this.tbSearchByItinerary.Name = "tbSearchByItinerary";
+            this.tbSearchByItinerary.Size = new System.Drawing.Size(170, 22);
+            this.tbSearchByItinerary.TabIndex = 7;
+            // 
             // AddScheduleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(572, 682);
+            this.Controls.Add(this.tbSearchByItinerary);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.gbAddSchedule);
             this.Controls.Add(this.btnAddScheduleForCurrRow);
             this.Controls.Add(this.dgvTrainsInStantion);
@@ -417,5 +439,7 @@
         private System.Windows.Forms.Button btnDelRecordSch;
         private System.Windows.Forms.Button btnOKRecordSch;
         private System.Windows.Forms.Button btnAddRecordSch;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox tbSearchByItinerary;
     }
 }

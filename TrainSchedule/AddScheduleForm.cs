@@ -84,7 +84,8 @@ namespace TrainSchedule
                 SqlCommand cmd_ShowListTrain = new SqlCommand(string.Format("SELECT s.StantionName, tats.TrainN, t.TrainItenerary FROM TrainsAtTheStantions AS tats " +
                                                                             "INNER JOIN Train AS t ON t.TrainN = tats.TrainN " +
                                                                             "INNER JOIN Stantion AS s ON s.ID_Stantion = tats.ID_Stantion " +
-                                                                            "WHERE s.StantionName LIKE '%{0}%'", tbSeachByStantion.Text), connection);
+                                                                            "WHERE s.StantionName LIKE '%{0}%' AND t.TrainItenerary LIKE '%{1}%'",
+                                                                            tbSeachByStantion.Text, tbSearchByItinerary.Text), connection);
                 using (adapter = new SqlDataAdapter(cmd_ShowListTrain))
                 {
                     try
