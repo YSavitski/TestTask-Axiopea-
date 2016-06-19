@@ -25,7 +25,7 @@ namespace TrainSchedule
 
         public void ShowTrainList(string str_connection)
         {
-            using (SqlConnection connection = new SqlConnection(str_connection))
+            using (SqlConnection connection = new SqlConnection(Connection.ConnectionStr()))
             {
                 connection.Open();
                 SqlCommand cmd_ShowListTrain = new SqlCommand("SELECT *FROM Train AS t", connection);
@@ -51,13 +51,13 @@ namespace TrainSchedule
 
         private void AddTrainForm_Load(object sender, EventArgs e)
         {
-            ShowTrainList(Connection.str_connection);
+            ShowTrainList(Connection.ConnectionStr());
 
         }
 
         private void btnAddTrain_Click(object sender, EventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(Connection.str_connection))
+            using (SqlConnection connection = new SqlConnection(Connection.ConnectionStr()))
             {
                 connection.Open();
                 SqlCommand cmd_AddTrain = connection.CreateCommand();
@@ -74,7 +74,7 @@ namespace TrainSchedule
                         cmd_AddTrain.ExecuteNonQuery();
                         tran_AddTrain.Commit();
                         MessageBox.Show("Both records are written to database", "Sucsess", MessageBoxButtons.OK);
-                        ShowTrainList(Connection.str_connection);
+                        ShowTrainList(Connection.ConnectionStr());
                     }
                     catch (Exception ex1)
                     {

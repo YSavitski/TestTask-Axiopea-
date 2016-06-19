@@ -1,0 +1,1 @@
+Data Source = ESAVITSKY; Initial Catalog = TrainDB; Integrated Security = True; Pooling = true

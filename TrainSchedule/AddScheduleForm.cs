@@ -42,7 +42,7 @@ namespace TrainSchedule
 
         private void btnSearchByStantion_Click(object sender, EventArgs e)
         {
-            ShowTrainListByStantion(Connection.str_connection);
+            ShowTrainListByStantion(Connection.ConnectionStr());
         }
 
         private void btnAddScheduleForCurrRow_Click(object sender, EventArgs e)
@@ -78,7 +78,7 @@ namespace TrainSchedule
         private void ShowTrainListByStantion(string str_connection)
         {
             tblListTrainByStantion.Clear();
-            using (SqlConnection connection = new SqlConnection(str_connection))
+            using (SqlConnection connection = new SqlConnection(Connection.ConnectionStr()))
             {
                 connection.Open();
                 SqlCommand cmd_ShowListTrain = new SqlCommand(string.Format("SELECT s.StantionName, tats.TrainN, t.TrainItenerary FROM TrainsAtTheStantions AS tats " +
@@ -103,7 +103,7 @@ namespace TrainSchedule
 
         private void ShowSchedule(string TrainN, string StantionName)
         {
-            using (SqlConnection connection = new SqlConnection(Connection.str_connection))
+            using (SqlConnection connection = new SqlConnection(Connection.ConnectionStr()))
             {
                 connection.Open();
                 SqlCommand cmd_ShowCurrentSchedule = new SqlCommand(string.Format("SELECT s.TrainN, s2.StantionName, s.DateIn, s.TimeArrive, s.TimeLeave " +

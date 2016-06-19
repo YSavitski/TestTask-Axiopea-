@@ -44,7 +44,7 @@ namespace TrainSchedule
 
         private static void InsertRecords(DataRow row)
         {
-            using (SqlConnection connection = new SqlConnection(Connection.str_connection))
+            using (SqlConnection connection = new SqlConnection(Connection.ConnectionStr()))
             {
                 try
                 {
@@ -81,7 +81,7 @@ namespace TrainSchedule
 
         private static void DeleteRecords(DataRow row)
         {
-            using (SqlConnection connection = new SqlConnection(Connection.str_connection))
+            using (SqlConnection connection = new SqlConnection(Connection.ConnectionStr()))
             {
                 connection.Open();
                 using (SqlCommand cmd_DeleteRecord = new SqlCommand("spDeleteFromSchedule", connection))

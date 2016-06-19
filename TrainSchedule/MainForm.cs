@@ -30,7 +30,7 @@ namespace TrainSchedule
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(Connection.str_connection))
+            using (SqlConnection connection = new SqlConnection(Connection.ConnectionStr()))
             {
                 connection.Open();
 
@@ -63,7 +63,7 @@ namespace TrainSchedule
         {
             dgvListSchedule.ClearSelection();
             tblSearchData.Clear();
-            using (SqlConnection connection = new SqlConnection(Connection.str_connection))
+            using (SqlConnection connection = new SqlConnection(Connection.ConnectionStr()))
             {
                 connection.Open();
 
