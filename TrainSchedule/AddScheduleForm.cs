@@ -74,6 +74,34 @@ namespace TrainSchedule
             }
         }
 
+        private void btnCancelRecordSch_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnOKRecordSch_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAddRecordSch_Click(object sender, EventArgs e)
+        {
+            AddRecordInSchedule(tbTrainNSchedule.Text, tbStantionSchedule.Text,
+                dtpActionFrom.Value.Date, dtpActionTo.Value.Date, dtpTimeArrive.Value.TimeOfDay, dtpTimeLeave.Value.TimeOfDay);
+        }
+
+
+        private void btnDelRecordSch_Click(object sender, EventArgs e)
+        {
+            DialogResult res = MessageBox.Show("Delete this record. Are you sure?", "DeleteDialog", MessageBoxButtons.OKCancel);
+            if (res == System.Windows.Forms.DialogResult.OK)
+            {
+                (dgvSchedule.CurrentRow.DataBoundItem as DataRowView).Row.Delete();
+                ScheduleWork.DeleteRecords(tblSchedule);
+            }
+        }
+
+
 
         private void ShowTrainListByStantion(string str_connection)
         {
@@ -126,24 +154,6 @@ namespace TrainSchedule
             }
         }
 
-        private void btnCancelRecordSch_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnOKRecordSch_Click(object sender, EventArgs e)
-        {
-
-
-            this.Close();
-        }
-
-        private void btnAddRecordSch_Click(object sender, EventArgs e)
-        {
-            AddRecordInSchedule(tbTrainNSchedule.Text, tbStantionSchedule.Text,
-                dtpActionFrom.Value.Date, dtpActionTo.Value.Date, dtpTimeArrive.Value.TimeOfDay, dtpTimeLeave.Value.TimeOfDay);
-        }
-
         private void AddRecordInSchedule(string trainN, 
                                             string stantionName, DateTime actionFrom, DateTime actionTo, 
                                             TimeSpan timeArrive, TimeSpan timeLeave)
@@ -169,10 +179,11 @@ namespace TrainSchedule
                             this.tblSchedule.Rows.Add(newRow);
                             actionFrom = actionFrom.AddHours(24);
                         }
-                        //else if (rbWeekly.Checked)
-                        //{
-                        //    actionFrom = actionFrom.AddDays(7);
-                        //}
+                        else if (rbWeekly.Checked)
+                        {
+                            this.tblSchedule.Rows.Add(newRow);
+                            actionFrom = actionFrom.AddHours(24*7);
+                        }
                         else if (rbEvenUnEven.Checked)
                         {
                             this.tblSchedule.Rows.Add(newRow);
@@ -201,10 +212,11 @@ namespace TrainSchedule
                         {
                             actionFrom = actionFrom.AddHours(24);
                         }
-                        //else if (rbWeekly.Checked)
-                        //{
-                        //    actionFrom = actionFrom.AddDays(7);
-                        //}
+                        else if (rbWeekly.Checked)
+                        {
+                            this.tblSchedule.Rows.Add(newRow);
+                            actionFrom = actionFrom.AddHours(24 * 7);
+                        }
                         else if (rbEvenUnEven.Checked)
                         {
                             actionFrom = actionFrom.AddHours(48);
@@ -227,16 +239,6 @@ namespace TrainSchedule
             else
             {
                 MessageBox.Show("You need select period!!!");
-            }
-        }
-
-        private void btnDelRecordSch_Click(object sender, EventArgs e)
-        {
-            DialogResult res = MessageBox.Show("Delete this record. Are you sure?", "DeleteDialog", MessageBoxButtons.OKCancel);
-            if (res == System.Windows.Forms.DialogResult.OK)
-            {
-                (dgvSchedule.CurrentRow.DataBoundItem as DataRowView).Row.Delete();
-                ScheduleWork.DeleteRecords(tblSchedule);
             }
         }
     }
