@@ -52,6 +52,8 @@ namespace TrainSchedule
                 var currRow = (dgvTrainsInStantion.CurrentRow.DataBoundItem as DataRowView).Row;
                 tbTrainNSchedule.Text = currRow["TrainN"].ToString();
                 tbStantionSchedule.Text = currRow["StantionName"].ToString();
+                dtpActionFrom.Value = DateTime.Today;
+                dtpActionTo.Value = DateTime.Today;
                 tbTrainNSchedule.ReadOnly = true;
                 tbStantionSchedule.ReadOnly = true;
                 gbAddSchedule.Visible = true;
@@ -213,8 +215,11 @@ namespace TrainSchedule
                         }
                         continue;
                     }
-                    tblSchedule.AcceptChanges();
-                    dgvSchedule.DataSource = tblSchedule;
+                    finally
+                    {
+                        SheduleWork.InsertRecords(this.tblSchedule);
+                        dgvSchedule.DataSource = tblSchedule;
+                    }
                 }
             }
 
@@ -224,6 +229,12 @@ namespace TrainSchedule
             }
         }
 
-        
+        private void btnDelRecordSch_Click(object sender, EventArgs e)
+        {
+            foreach (DataRow row in tblSchedule.Rows)
+            {
+                MessageBox.Show(row.RowState.ToString());
+            }
+        }
     }
 }

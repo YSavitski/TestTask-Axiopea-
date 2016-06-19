@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SheduleWork.cs" />
     <EmbeddedResource Include="AddScheduleForm.resx">
       <DependentUpon>AddScheduleForm.cs</DependentUpon>
     </EmbeddedResource>

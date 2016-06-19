@@ -338,6 +338,7 @@
             this.btnDelRecordSch.TabIndex = 16;
             this.btnDelRecordSch.Text = "Delete Record In Schedule";
             this.btnDelRecordSch.UseVisualStyleBackColor = true;
+            this.btnDelRecordSch.Click += new System.EventHandler(this.btnDelRecordSch_Click);
             // 
             // btnCancelRecordSch
             // 
