@@ -238,7 +238,7 @@ namespace TrainSchedule
 
             else
             {
-                MessageBox.Show("You need select period!!!");
+                MessageBox.Show("You need to select period!!!");
             }
         }
     }
